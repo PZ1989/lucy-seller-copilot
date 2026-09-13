@@ -35,14 +35,30 @@ body {
 }
 
 h1,
-h1 {
-  font-family: var(--font-oswald), var(--font-manrope), sans-serif;
-  font-weight: 600;
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-manrope), sans-serif;
 }
 
-.accent-heading {
-  font-family: var(--font-bebas-neue), var(--font-manrope), sans-serif;
-  letter-spacing: 0.04em;
+.display-heading {
+  font-family: var(--font-unbounded), var(--font-manrope), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+main > section:first-of-type h1 {
+  font-family: var(--font-unbounded), var(--font-manrope), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-home > div > section:first-of-type h2 {
+  font-family: var(--font-unbounded), var(--font-manrope), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 * {

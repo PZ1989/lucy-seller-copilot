@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Manrope, Oswald } from "next/font/google";
+import { Manrope, Unbounded } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 import { I18nProvider } from "@/lib/i18n";
@@ -18,17 +18,10 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  variable: "--font-bebas-neue",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const oswald = Oswald({
-  weight: ["500", "600", "700"],
-  variable: "--font-oswald",
-  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+const unbounded = Unbounded({
+  weight: ["500", "600"],
+  variable: "--font-unbounded",
+  subsets: ["latin", "cyrillic"],
   display: "swap",
 });
 
@@ -39,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} ${manrope.variable} ${bebasNeue.variable} ${oswald.variable}`}>
+      <body className={`${manrope.className} ${manrope.variable} ${unbounded.variable}`}>
         <I18nProvider><SessionProvider><SubscriptionProvider><AppShell>{children}</AppShell></SubscriptionProvider></SessionProvider></I18nProvider>
       </body>
     </html>
