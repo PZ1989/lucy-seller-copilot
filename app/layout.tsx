@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Manrope } from "next/font/google";
+import { Bebas_Neue, Manrope, Oswald } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 import { I18nProvider } from "@/lib/i18n";
@@ -25,6 +25,13 @@ const bebasNeue = Bebas_Neue({
   display: "swap",
 });
 
+const oswald = Oswald({
+  weight: ["500", "600", "700"],
+  variable: "--font-oswald",
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} ${manrope.variable} ${bebasNeue.variable}`}>
+      <body className={`${manrope.className} ${manrope.variable} ${bebasNeue.variable} ${oswald.variable}`}>
         <I18nProvider><SessionProvider><SubscriptionProvider><AppShell>{children}</AppShell></SubscriptionProvider></SessionProvider></I18nProvider>
       </body>
     </html>

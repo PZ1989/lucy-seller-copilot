@@ -35,12 +35,9 @@ body {
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-manrope), sans-serif;
+h1 {
+  font-family: var(--font-oswald), var(--font-manrope), sans-serif;
+  font-weight: 600;
 }
 
 .accent-heading {
