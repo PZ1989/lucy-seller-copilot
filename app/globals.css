@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Helvetica+Neue:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -18,7 +17,7 @@
   --color-terracotta: var(--terracotta);
   --color-mist: var(--mist);
   --color-linen: var(--linen);
-  --font-sans: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --font-sans: var(--font-manrope), sans-serif;
   --font-mono: "SFMono-Regular", "Consolas", monospace;
 }
 
@@ -30,7 +29,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -41,11 +40,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
 }
 
 .accent-heading {
-  font-family: "Bebas Neue", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-bebas-neue), var(--font-manrope), sans-serif;
   letter-spacing: 0.04em;
 }
 

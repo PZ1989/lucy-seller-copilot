@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Bebas_Neue, Manrope } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 import { I18nProvider } from "@/lib/i18n";
@@ -10,6 +11,19 @@ export const metadata: Metadata = {
   description: "AI operating system for marketplace sellers",
 };
 
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  variable: "--font-bebas-neue",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -17,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${manrope.variable} ${bebasNeue.variable}`}>
         <I18nProvider><SessionProvider><SubscriptionProvider><AppShell>{children}</AppShell></SubscriptionProvider></SessionProvider></I18nProvider>
       </body>
     </html>
