@@ -11,7 +11,7 @@ import { getEtsyListings } from "@/lib/api/etsy";
 import type { EtsyListing } from "@/lib/api/types";
 import { DraftWorkflow } from "@/components/listings/DraftWorkflow";
 
-const tabs = ["My Listings", "Drafts", "Active", "Planned"];
+const tabs = ["My Listings", "Drafts", "Active"];
 const featureCards = [
   ["listings.workspace.manual", "listings.workspace.manualDesc", "plus", "manual"],
   ["listings.workspace.withLucy", "listings.workspace.withLucyDesc", "sparkles", "lucy"],
@@ -37,16 +37,17 @@ export default function ListingsPage() {
   const [listingsError, setListingsError] = useState(false);
   const connected = Boolean(etsyConnection?.connected && etsyConnection.connectionHealth !== "expired");
   const listingStatusLabel = listingsLoading ? "Loading listings..." : listingsError ? "Unable to load listings." : connected ? t("listings.workspace.liveConnection") : t("listings.workspace.noConnection");
-  const displayTabs = [t("listings.workspace.my"), t("listings.workspace.drafts"), t("listings.workspace.active"), t("listings.workspace.planned")];
-  const displayListings = liveListings.filter((listing) => activeTab === "My Listings" || listing.state.toLowerCase() === activeTab.slice(0, -1).toLowerCase()).map((listing) => ({ id: listing.listingId, title: listing.title, status: listing.state, price: listing.price ? `${listing.price.amount} ${listing.price.currency ?? ""}` : "—", views: listing.views == null ? "—" : String(listing.views), favorites: listing.favorites == null ? "—" : String(listing.favorites), updated: listing.updatedAt ? new Intl.DateTimeFormat().format(new Date(listing.updatedAt)) : "—" }));
+  const displayTabs = [t("listings.workspace.my"), t("listings.workspace.drafts"), t("listings.workspace.active")];
+  const listingState = activeTab === "Drafts" ? "draft" : "active";
+  const displayListings = liveListings.filter((listing) => activeTab === "My Listings" || listing.state.toLowerCase() === listingState).map((listing) => ({ id: listing.listingId, title: listing.title, status: listing.state, price: listing.price ? `${listing.price.amount} ${listing.price.currency ?? ""}` : "—", views: listing.views == null ? "—" : String(listing.views), favorites: listing.favorites == null ? "—" : String(listing.favorites), updated: listing.updatedAt ? new Intl.DateTimeFormat().format(new Date(listing.updatedAt)) : "—" }));
 
   useEffect(() => {
     if (!connected) { setLiveListings([]); return; }
     let live = true;
     setListingsLoading(true); setListingsError(false);
-    void getEtsyListings({ limit: 100 }).then((response) => { if (live) setLiveListings(response.listings); }).catch(() => { if (live) { setLiveListings([]); setListingsError(true); } }).finally(() => { if (live) setListingsLoading(false); });
+    void getEtsyListings({ limit: 100, state: listingState }).then((response) => { if (live) setLiveListings(response.listings); }).catch(() => { if (live) { setLiveListings([]); setListingsError(true); } }).finally(() => { if (live) setListingsLoading(false); });
     return () => { live = false; };
-  }, [connected]);
+  }, [connected, listingState]);
 
   useEffect(() => {
     if (mode !== "overview" || !connected) return;

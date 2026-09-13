@@ -4,13 +4,15 @@ import type { EtsyConnection, EtsyDraftInput, EtsyDraftWriteResponse, EtsyListin
 type PageOptions = {
   limit?: number;
   offset?: number;
+  state?: "active" | "draft";
 };
 
-function pageQuery({ limit = 25, offset = 0 }: PageOptions = {}) {
+function pageQuery({ limit = 25, offset = 0, state }: PageOptions = {}) {
   const params = new URLSearchParams({
     limit: String(Math.min(Math.max(limit, 1), 100)),
     offset: String(Math.max(offset, 0)),
   });
+  if (state) params.set("state", state);
   return `?${params.toString()}`;
 }
 
@@ -56,6 +58,10 @@ export function getEtsyReadinessProfiles(locale: "en" | "uk" = "en") {
       description: readinessDescription(profile, locale),
     }]),
   }));
+}
+
+export function searchEtsyTaxonomy(query: string) {
+  return api.get<{ items?: Array<{ taxonomyId: string | number; name: string; path: string }> }>(`/frontend-api/etsy/taxonomy?query=${encodeURIComponent(query)}`).then((response) => response.items ?? []);
 }
 
 export function createEtsyDraft(input: EtsyDraftInput) {

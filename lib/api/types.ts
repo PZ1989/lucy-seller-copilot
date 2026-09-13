@@ -45,6 +45,9 @@ export type EtsyListing = {
 export type EtsyListingDetail = EtsyListing & {
   description: string | null;
   images: Array<{ url: string; alt?: string | null }>;
+  tags?: string[];
+  materials?: string[];
+  taxonomyId?: string | number | null;
 };
 
 export type EtsyDraftInput = {
@@ -55,6 +58,9 @@ export type EtsyDraftInput = {
   type?: "physical" | "download";
   whoMade?: "i_did" | "someone_else" | "collective";
   whenMade?: EtsyWhenMade;
+  taxonomyId?: string | number;
+  tags?: string[];
+  materials?: string[];
   shippingProfileId?: string | number;
   readinessStateId?: string | number;
 };
