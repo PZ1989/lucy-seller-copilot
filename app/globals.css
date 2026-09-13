@@ -1,0 +1,473 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Helvetica+Neue:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #f7f4f1;
+  --foreground: #333333;
+  --charcoal: #333333;
+  --terracotta: #f74e03;
+  --mist: #aac1d1;
+  --linen: #e7e0da;
+  --white: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-charcoal: var(--charcoal);
+  --color-terracotta: var(--terracotta);
+  --color-mist: var(--mist);
+  --color-linen: var(--linen);
+  --font-sans: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", "Consolas", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+}
+
+.accent-heading {
+  font-family: "Bebas Neue", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sidebar-nav {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.sidebar-nav:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.32) transparent;
+}
+
+.sidebar-nav:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.sidebar-nav::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.dashboard-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(40, 40, 40, 0.18) transparent;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(40, 40, 40, 0.16);
+  border-radius: 999px;
+}
+
+.dashboard-scrollbar:hover {
+  scrollbar-color: rgba(40, 40, 40, 0.3) transparent;
+}
+
+.dashboard-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: rgba(40, 40, 40, 0.3);
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.reports-page [class*="shadow-[0_14px_35px"] {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+}
+
+.reports-page [class*="shadow-[0_12px_30px"] {
+  padding: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .reports-page [class*="shadow-[0_14px_35px"] {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 1535px) {
+  .automation-page .space-y-3 > article > div.grid {
+    display: block;
+  }
+
+  .automation-page .space-y-3 > article > div.grid > * + * {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-height: 850px) {
+  .sidebar-logo {
+    margin-bottom: 0.75rem;
+  }
+
+  .sidebar-nav-item {
+    min-height: 44px;
+  }
+
+  .sidebar-plan {
+    margin-top: 0.75rem;
+    padding: 0.625rem;
+  }
+
+  .sidebar-profile {
+    margin-top: 0.75rem;
+  }
+
+  .sidebar-profile > div:first-child {
+    padding: 0.625rem;
+  }
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.settings-page section:nth-of-type(2) > div > div:first-child {
+  display: none;
+}
+
+.settings-page [role="tablist"] button {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+}
+
+.settings-page label {
+  font-size: 0.8125rem;
+}
+
+.settings-page input,
+.settings-page select {
+  height: 2.75rem;
+  font-size: 0.875rem;
+}
+
+.settings-page section {
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+}
+
+.settings-page section h2 {
+  font-size: 1.375rem;
+}
+
+@media (min-width: 1024px) {
+  .settings-page .lg\:grid-cols-\[1fr_320px\] {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 30%);
+  }
+}
+
+.research-page .text-terracotta.text-\[12px\] {
+  display: none;
+}
+
+.research-page aside > div:last-child {
+  padding: 1rem;
+}
+
+
+.lucyHero {
+  width: 100%;
+  min-height: 500px;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(430px, 1.35fr) minmax(340px, 0.9fr);
+  align-items: center;
+  gap: 24px;
+
+  padding: 34px 36px;
+
+  background: #fff;
+  border-radius: 30px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+
+/* LEFT */
+
+.lucyHeroLeft {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lucyHeroTitle {
+  margin: 22px 0 16px;
+  font-size: clamp(48px, 4vw, 70px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  color: #333333;
+}
+
+.lucyHeroTitle span {
+  display: block;
+  color: #F74E03;
+}
+
+.lucyHeroText {
+  max-width: 480px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #727272;
+}
+
+.lucyHeroActions {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+
+/* SOCIAL PROOF */
+
+.lucySocialProof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.lucyAvatars {
+  display: flex;
+  padding-left: 8px;
+}
+
+.lucyAvatars img {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border-radius: 999px;
+  border: 3px solid white;
+  margin-left: -8px;
+}
+
+.lucySocialProof strong,
+.lucySocialProof span {
+  display: block;
+}
+
+.lucySocialProof strong {
+  font-size: 18px;
+  color: #333333;
+}
+
+.lucySocialProof span {
+  margin-top: 2px;
+  font-size: 14px;
+  color: #888888;
+}
+
+
+/* LUCY CENTER */
+
+.lucyHeroVisual {
+  min-width: 0;
+  height: 430px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;
+  position: relative;
+}
+
+.lucyHeroImage {
+  display: block;
+
+  width: min(100%, 520px) !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  transform: scale(1.45);
+  transform-origin: center center;
+
+  filter: drop-shadow(0 28px 34px rgba(247, 78, 3, 0.20));
+}
+
+/* Apply the supplied reference hero treatment to the existing Dashboard hero DOM. */
+.dashboard-home > div > section:first-of-type {
+  width: 100%;
+  min-height: 500px;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(430px, 1.35fr) minmax(340px, 0.9fr);
+  align-items: center;
+  gap: 24px;
+  padding: 34px 36px;
+  background: #fff;
+  border-radius: 30px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.dashboard-home > div > section:first-of-type > div:first-child {
+  display: contents;
+}
+
+.dashboard-home > div > section:first-of-type > div:first-child > div:first-child {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(2) {
+  min-width: 0;
+  height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  position: relative;
+}
+
+.dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(2) img {
+  display: block;
+  width: min(100%, 520px) !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: scale(1.45);
+  transform-origin: center center;
+  filter: drop-shadow(0 28px 34px rgba(247, 78, 3, 0.20));
+}
+
+.dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(3) {
+  width: 100%;
+  min-width: 0;
+  padding: 26px;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #ece8e4;
+  border-radius: 24px;
+  overflow: visible;
+}
+
+
+/* RIGHT PANEL */
+
+.lucyEnvironment {
+  width: 100%;
+  min-width: 0;
+  max-width: none !important;
+
+  box-sizing: border-box;
+
+  padding: 26px;
+
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #ece8e4;
+  border-radius: 24px;
+
+  overflow: visible !important;
+}
+
+
+/* IMPORTANT:
+   no child panel is allowed to crop */
+.lucyEnvironment * {
+  box-sizing: border-box;
+}
+
+
+/* TABLET */
+
+@media (max-width: 1200px) {
+  .lucyHero,
+  .dashboard-home > div > section:first-of-type {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lucyEnvironment,
+  .dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .lucyHeroImage,
+  .dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(2) img {
+    transform: scale(1.25);
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 760px) {
+  .lucyHero,
+  .dashboard-home > div > section:first-of-type {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .lucyHeroVisual,
+  .dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(2) {
+    height: 360px;
+  }
+
+  .lucyHeroImage,
+  .dashboard-home > div > section:first-of-type > div:first-child > div:nth-child(2) img {
+    transform: scale(1.15);
+  }
+
+  .lucyHeroActions,
+  .dashboard-home > div > section:first-of-type > div:first-child > div:first-child > div:nth-child(4) {
+    flex-direction: column;
+  }
+}
