@@ -37,7 +37,7 @@ export function DraftWorkflow({ mode, title, t, onBack, listingId, initialListin
     if (mode !== "edit" || listingId == null) return () => { active = false; };
     void getEtsyListing(listingId).then((detail) => {
       if (!active) return;
-      setForm((current) => ({ ...current, title: detail.title, description: detail.description ?? "", price: detail.price == null ? undefined : Number(detail.price), quantity: detail.quantity ?? 1 }));
+      setForm((current) => ({ ...current, title: detail.title, description: detail.description ?? "", price: detail.price == null ? undefined : Number(detail.price.amount), quantity: detail.quantity ?? 1 }));
     }).catch(() => { if (active) setDetailUnavailable(true); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [listingId, mode]);

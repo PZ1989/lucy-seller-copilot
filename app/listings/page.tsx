@@ -48,6 +48,25 @@ export default function ListingsPage() {
     return () => { live = false; };
   }, [connected]);
 
+  useEffect(() => {
+    if (mode !== "overview" || !connected) return;
+    const rows = document.querySelectorAll<HTMLTableRowElement>("table tbody tr");
+    const cleanups: Array<() => void> = [];
+    rows.forEach((row, index) => {
+      const listingId = displayListings[index]?.id;
+      if (listingId == null) return;
+      row.setAttribute("role", "button");
+      row.tabIndex = 0;
+      row.classList.add("cursor-pointer", "outline-none", "transition-colors", "hover:bg-[#FFF8F3]", "focus-visible:bg-[#FFF8F3]", "focus-visible:ring-2", "focus-visible:ring-inset", "focus-visible:ring-terracotta/40");
+      const open = () => selectListing(listingId);
+      const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); } };
+      row.addEventListener("click", open);
+      row.addEventListener("keydown", onKeyDown);
+      cleanups.push(() => { row.removeEventListener("click", open); row.removeEventListener("keydown", onKeyDown); });
+    });
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, [connected, displayListings, mode]);
+
   function choose(modeName: typeof mode, listingId?: string | number) {
     if ((modeName === "edit" || modeName === "edit-select") && !connected) return;
     setSelectedListingId(listingId);
