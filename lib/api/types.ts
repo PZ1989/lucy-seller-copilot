@@ -118,6 +118,19 @@ export type EtsyDraftWriteResponse = {
   state: string;
 };
 
+export type LucyListingGeneration = {
+  title: string;
+  description: string;
+  tags: string[];
+  materials: string[];
+  suggestedPrice: number | null;
+  quantity: number;
+  whoMade: EtsyDraftInput["whoMade"];
+  whenMade: EtsyWhenMade;
+  productType: "physical" | "download";
+  categorySuggestion: string | null;
+};
+
 export type EtsyListingsApiResponse = {
   items?: EtsyListing[] | null;
   total?: number | null;
