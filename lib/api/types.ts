@@ -119,6 +119,7 @@ export type EtsyDraftWriteResponse = {
 };
 
 export type LucyListingGeneration = {
+  provider: "openai" | "claude";
   title: string;
   description: string;
   tags: string[];
@@ -130,6 +131,16 @@ export type LucyListingGeneration = {
   productType: "physical" | "download";
   categorySuggestion: string | null;
 };
+
+export type LucyListingOptimization = {
+  provider: "openai" | "claude";
+  improvedTitle: string;
+  improvedDescription: string;
+  improvedTags: string[];
+  recommendations: string[];
+};
+
+export type LucyProviderStatus = { openai: boolean; claude: boolean };
 
 export type EtsyListingsApiResponse = {
   items?: EtsyListing[] | null;

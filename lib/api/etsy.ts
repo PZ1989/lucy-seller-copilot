@@ -64,8 +64,16 @@ export function searchEtsyTaxonomy(query: string) {
   return api.get<{ items?: Array<{ taxonomyId: string | number; name: string; path: string }> }>(`/frontend-api/etsy/taxonomy?query=${encodeURIComponent(query)}`).then((response) => response.items ?? []);
 }
 
-export function generateLucyListing(prompt: string, language: "uk" | "en", productType: "physical" | "download") {
-  return api.post<import("./types").LucyListingGeneration>("/frontend-api/lucy/listings/generate", { prompt, language, productType });
+export function generateLucyListing(prompt: string, language: "uk" | "en", productType: "physical" | "download", provider?: "openai" | "claude") {
+  return api.post<import("./types").LucyListingGeneration>("/frontend-api/lucy/listings/generate", { prompt, language, productType, provider });
+}
+
+export function getLucyProviderStatus() {
+  return api.get<import("./types").LucyProviderStatus>("/frontend-api/lucy/providers");
+}
+
+export function optimizeLucyListing(input: { title: string; description: string; tags: string[]; language: "uk" | "en"; provider?: "openai" | "claude" }) {
+  return api.post<import("./types").LucyListingOptimization>("/frontend-api/lucy/listings/optimize", input);
 }
 
 export function createEtsyDraft(input: EtsyDraftInput) {

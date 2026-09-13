@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ApiError } from "@/lib/api/types";
 import { getSession } from "@/lib/api/auth";
-import { disconnectEtsy, etsyOAuthStartUrl, getEtsyConnection } from "@/lib/api/etsy";
+import { disconnectEtsy, etsyOAuthStartUrl, getEtsyConnection, getLucyProviderStatus } from "@/lib/api/etsy";
 import type { EtsyConnection } from "@/lib/api/types";
 import { Icon } from "@/components/dashboard/icons";
 import { useI18n } from "@/lib/i18n";
@@ -47,12 +47,14 @@ export default function ConnectionsPage() {
   const [connection, setConnection] = useState<EtsyConnection | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disconnecting, setDisconnecting] = useState(false);
+  const [providers, setProviders] = useState({ openai: false, claude: false });
 
   const refreshConnection = useCallback(async () => {
     try {
-      const [session, etsy] = await Promise.all([getSession(), getEtsyConnection()]);
+      const [session, etsy, providerStatus] = await Promise.all([getSession(), getEtsyConnection(), getLucyProviderStatus()]);
       if (!session?.user) throw new ApiError("Your session has expired.", "unauthenticated");
       setConnection(etsy);
+      setProviders(providerStatus);
       setLoadState("authenticated");
       setErrorMessage("");
     } catch (requestError) {
@@ -91,8 +93,8 @@ export default function ConnectionsPage() {
   const etsyConnected = connection?.connected === true && connection.connectionHealth !== "expired";
   const statusFor = (id: ServiceId): { label: string; tone: StatusTone } => {
     if (id === "etsy") return etsyConnected ? { label: t("connections.status.connected"), tone: "green" } : { label: t("connections.status.notConnected"), tone: "neutral" };
-    if (id === "chatgpt") return { label: t("connections.status.availableInLucy"), tone: "blue" };
-    if (id === "claude") return { label: t("connections.status.unavailable"), tone: "neutral" };
+    if (id === "chatgpt") return providers.openai ? { label: t("connections.status.connected"), tone: "green" } : { label: t("connections.status.availableInLucy"), tone: "blue" };
+    if (id === "claude") return providers.claude ? { label: t("connections.status.availableInLucy"), tone: "blue" } : { label: t("connections.status.unavailable"), tone: "neutral" };
     return { label: t("connections.status.notConnected"), tone: "neutral" };
   };
 
