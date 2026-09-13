@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Unbounded } from "next/font/google";
+import { Manrope, Onest } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 import { I18nProvider } from "@/lib/i18n";
@@ -18,9 +18,9 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const unbounded = Unbounded({
-  weight: ["500", "600"],
-  variable: "--font-unbounded",
+const onest = Onest({
+  weight: ["600", "700", "800"],
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} ${manrope.variable} ${unbounded.variable}`}>
+      <body className={`${manrope.className} ${manrope.variable} ${onest.variable}`}>
         <I18nProvider><SessionProvider><SubscriptionProvider><AppShell>{children}</AppShell></SubscriptionProvider></SessionProvider></I18nProvider>
       </body>
     </html>

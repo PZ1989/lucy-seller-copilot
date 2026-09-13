@@ -44,21 +44,22 @@ h6 {
 }
 
 .display-heading {
-  font-family: var(--font-unbounded), var(--font-manrope), sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--font-onest), var(--font-manrope), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
-main > section:first-of-type h1 {
-  font-family: var(--font-unbounded), var(--font-manrope), sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+main > section h1,
+main > div > header h1 {
+  font-family: var(--font-onest), var(--font-manrope), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 .dashboard-home > div > section:first-of-type h2 {
-  font-family: var(--font-unbounded), var(--font-manrope), sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--font-onest), var(--font-manrope), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 * {
