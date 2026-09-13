@@ -54,12 +54,30 @@ main > div > header h1 {
   font-family: var(--font-onest), var(--font-manrope), sans-serif;
   font-weight: 700;
   letter-spacing: -0.025em;
+  line-height: 1.08;
 }
 
 .dashboard-home > div > section:first-of-type h2 {
   font-family: var(--font-onest), var(--font-manrope), sans-serif;
   font-weight: 800;
   letter-spacing: -0.04em;
+}
+
+main h2.text-2xl,
+main h2.text-\[22px\],
+main h2.text-\[20px\],
+main h2.text-\[18px\],
+main h2.text-\[17px\] {
+  font-family: var(--font-onest), var(--font-manrope), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.connections-page h2.text-\[16px\],
+.settings-page h2.text-\[17px\] {
+  font-family: var(--font-onest), var(--font-manrope), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 * {

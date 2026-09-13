@@ -100,7 +100,7 @@ export default function ConnectionsPage() {
     return <div className="min-h-screen px-4 pb-10 pt-6 sm:px-6 lg:px-8 lg:pt-8"><div className="mx-auto w-full max-w-[1120px]"><div className="h-24 animate-pulse rounded-[20px] bg-white/60"/><div className="mt-6 grid gap-4 md:grid-cols-2">{services.map((service) => <div key={service.id} className="h-[248px] animate-pulse rounded-[20px] bg-white/60"/>)}</div></div></div>;
   }
 
-  return <div className="min-h-screen px-4 pb-10 pt-6 sm:px-6 lg:px-8 lg:pb-12 lg:pt-8"><div className="mx-auto w-full max-w-[1120px]">
+  return <div className="connections-page min-h-screen px-4 pb-10 pt-6 sm:px-6 lg:px-8 lg:pb-12 lg:pt-8"><div className="mx-auto w-full max-w-[1120px]">
     <header className="border-b border-charcoal/[0.08] pb-6"><h1 className="text-3xl font-semibold tracking-[-0.05em] text-charcoal">{t("connections.header.title")}</h1><p className="mt-2 max-w-xl text-[12px] leading-5 text-charcoal/55">{t("connections.header.subtitle")}</p></header>
     {loadState === "unauthenticated" && <div role="alert" className="mt-6 rounded-[14px] border border-charcoal/[0.1] bg-white px-4 py-3 text-[13px] text-charcoal/65">{t("connections.error.unauthenticated")}</div>}
     {errorMessage && <div role="alert" className="mt-6 flex items-center justify-between gap-3 rounded-[14px] border border-terracotta/20 bg-[#FFF8F3] px-4 py-3 text-[13px] text-charcoal/70"><span>{errorMessage}</span><button type="button" onClick={() => void refreshConnection()} className="font-semibold text-terracotta">{t("connections.error.retry")}</button></div>}
