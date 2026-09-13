@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 const manrope = Manrope({
+  weight: ["400", "500", "600", "700"],
   variable: "--font-manrope",
   subsets: ["latin", "cyrillic"],
   display: "swap",
@@ -31,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${bebasNeue.variable}`}>
+      <body className={`${manrope.className} ${manrope.variable} ${bebasNeue.variable}`}>
         <I18nProvider><SessionProvider><SubscriptionProvider><AppShell>{children}</AppShell></SubscriptionProvider></SessionProvider></I18nProvider>
       </body>
     </html>
