@@ -129,7 +129,7 @@ export type LucyListingGeneration = {
   whoMade: EtsyDraftInput["whoMade"];
   whenMade: EtsyWhenMade;
   productType: "physical" | "download";
-  categorySuggestion: string | null;
+  categorySuggestion: string | { label: string; query: string } | null;
 };
 
 export type LucyListingOptimization = {
@@ -137,10 +137,11 @@ export type LucyListingOptimization = {
   improvedTitle: string;
   improvedDescription: string;
   improvedTags: string[];
+  improvedMaterials?: string[];
   recommendations: string[];
 };
 
-export type LucyProviderStatus = { openai: boolean; claude: boolean };
+export type LucyProviderStatus = { openai: boolean; anthropic: boolean; defaultProvider: "openai" | "anthropic" };
 
 export type EtsyListingsApiResponse = {
   items?: EtsyListing[] | null;

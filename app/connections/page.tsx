@@ -47,7 +47,7 @@ export default function ConnectionsPage() {
   const [connection, setConnection] = useState<EtsyConnection | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disconnecting, setDisconnecting] = useState(false);
-  const [providers, setProviders] = useState({ openai: false, claude: false });
+  const [providers, setProviders] = useState({ openai: false, anthropic: false, defaultProvider: "openai" as "openai" | "anthropic" });
 
   const refreshConnection = useCallback(async () => {
     try {
@@ -94,7 +94,7 @@ export default function ConnectionsPage() {
   const statusFor = (id: ServiceId): { label: string; tone: StatusTone } => {
     if (id === "etsy") return etsyConnected ? { label: t("connections.status.connected"), tone: "green" } : { label: t("connections.status.notConnected"), tone: "neutral" };
     if (id === "chatgpt") return providers.openai ? { label: t("connections.status.connected"), tone: "green" } : { label: t("connections.status.availableInLucy"), tone: "blue" };
-    if (id === "claude") return providers.claude ? { label: t("connections.status.availableInLucy"), tone: "blue" } : { label: t("connections.status.unavailable"), tone: "neutral" };
+    if (id === "claude") return providers.anthropic ? { label: t("connections.status.availableInLucy"), tone: "blue" } : { label: t("connections.status.unavailable"), tone: "neutral" };
     return { label: t("connections.status.notConnected"), tone: "neutral" };
   };
 
