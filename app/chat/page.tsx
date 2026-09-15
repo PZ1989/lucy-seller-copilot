@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpenText, Check, Plus, Search, Send, X } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { getEtsyConnection, getEtsyListings, getLucyCredits, sendLucyChatMessage } from "@/lib/api/etsy";
-import type { EtsyListing, LucyCreditStatus } from "@/lib/api/types";
+import { ApiError, type EtsyListing, type LucyCreditStatus } from "@/lib/api/types";
 
 type Context = "shop" | "listing" | "none";
 type Message = { id: number; role: "user" | "lucy"; text: string };
@@ -17,7 +17,7 @@ export default function ChatPage() {
   async function openListings() { setListingOpen(true); if (listings.length) return; try { setListings((await getEtsyListings({ limit: 100, state: "active" })).listings); } catch { setError(t("chat.error.failed")); } }
   function commandAction(command: typeof commands[number]) { setDraft(t(command[1])); setCommandsOpen(false); if (command[0] === "chat.command.listing" || command[0] === "chat.command.optimize") { if (listing) setContext("listing"); else void openListings(); } }
   const useCommand = commandAction;
-  function friendlyError(value: unknown) { const code = value instanceof Error ? value.message : ""; if (code.includes("insufficient_ai_credits")) return t("chat.error.insufficient"); if (code.includes("ai_usage_temporarily_limited")) return t("chat.error.limited"); if (code.includes("ai_rate_limited")) return t("chat.error.rateLimited"); return t("chat.error.failed"); }
+  function friendlyError(value: unknown) { const code = value instanceof ApiError ? value.code : value instanceof Error ? value.message : ""; if (code.includes("insufficient_ai_credits")) return t("chat.error.insufficient"); if (code.includes("ai_usage_temporarily_limited")) return t("chat.error.limited"); if (code.includes("ai_rate_limited")) return t("chat.error.rateLimited"); if (code.includes("ai_provider_unavailable")) return t("chat.error.providerUnavailable"); return t("chat.error.failed"); }
   async function send() { const message = draft.trim(); if (!message || sending) return; setSending(true); setError(""); setDraft(""); setMessages((current) => [...current, { id: nextId.current++, role: "user", text: message }]); try { const result = await sendLucyChatMessage({ message, language: locale, contextType: context, listingId: listing?.listingId == null ? undefined : String(listing.listingId) }); setMessages((current) => [...current, { id: nextId.current++, role: "lucy", text: result.response }]); void getLucyCredits().then(setCredits).catch(() => undefined); } catch (requestError) { setDraft(message); setError(friendlyError(requestError)); } finally { setSending(false); } }
   function keyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void send(); } }
   const filteredListings = listings.filter((item) => item.title.toLowerCase().includes(listingSearch.toLowerCase()));

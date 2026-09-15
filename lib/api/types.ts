@@ -199,7 +199,7 @@ export type BillingStatus = {
   portalUrl: string | null;
 };
 
-export type ApiErrorCode = "unauthenticated" | "unavailable" | "timeout" | "request_failed" | "invalid_response";
+export type ApiErrorCode = string;
 
 export class ApiError extends Error {
   constructor(

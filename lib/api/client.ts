@@ -26,7 +26,14 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
       throw new ApiError("Your session has expired.", "unauthenticated", response.status);
     }
     if (!response.ok) {
-      throw new ApiError("The request could not be completed.", "request_failed", response.status);
+      let publicCode = "request_failed";
+      let publicMessage = "The request could not be completed.";
+      try {
+        const payload = await response.clone().json() as { error?: unknown; message?: unknown };
+        if (typeof payload.error === "string") publicCode = payload.error;
+        if (typeof payload.message === "string") publicMessage = payload.message;
+      } catch { /* Keep the generic safe fallback for non-JSON errors. */ }
+      throw new ApiError(publicMessage, publicCode, response.status);
     }
 
     try {
