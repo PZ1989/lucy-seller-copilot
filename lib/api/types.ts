@@ -119,7 +119,7 @@ export type EtsyDraftWriteResponse = {
 };
 
 export type LucyListingGeneration = {
-  provider: "openai" | "claude";
+  provider: "openai" | "anthropic" | "claude";
   title: string;
   description: string;
   tags: string[];
@@ -133,7 +133,7 @@ export type LucyListingGeneration = {
 };
 
 export type LucyListingOptimization = {
-  provider: "openai" | "claude";
+  provider: "openai" | "anthropic" | "claude";
   improvedTitle: string;
   improvedDescription: string;
   improvedTags: string[];
@@ -141,7 +141,9 @@ export type LucyListingOptimization = {
   recommendations: string[];
 };
 
-export type LucyProviderStatus = { openai: boolean; anthropic: boolean; defaultProvider: "openai" | "anthropic" };
+export type LucyProviderStatus = { openai: boolean; anthropic: boolean; defaultProvider: "auto" | "openai" | "anthropic" };
+export type LucyConnection = { connected: boolean; fingerprint: string | null; lastVerifiedAt: string | null };
+export type LucyConnections = { openai: LucyConnection; anthropic: LucyConnection };
 
 export type EtsyListingsApiResponse = {
   items?: EtsyListing[] | null;

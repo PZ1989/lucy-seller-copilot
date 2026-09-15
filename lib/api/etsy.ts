@@ -64,7 +64,7 @@ export function searchEtsyTaxonomy(query: string) {
   return api.get<{ items?: Array<{ taxonomyId: string | number; name: string; path: string | string[] }> }>(`/frontend-api/etsy/taxonomy?query=${encodeURIComponent(query)}`).then((response) => response.items ?? []);
 }
 
-export function generateLucyListing(prompt: string, language: "uk" | "en", productType: "physical" | "download", provider?: "openai" | "claude") {
+export function generateLucyListing(prompt: string, language: "uk" | "en", productType: "physical" | "download", provider?: "openai" | "anthropic" | "claude") {
   return api.post<import("./types").LucyListingGeneration>("/frontend-api/lucy/listings/generate", { prompt, language, productType, provider });
 }
 
@@ -72,7 +72,19 @@ export function getLucyProviderStatus() {
   return api.get<import("./types").LucyProviderStatus>("/frontend-api/lucy/providers");
 }
 
-export function optimizeLucyListing(input: { title: string; description: string; tags: string[]; materials?: string[]; productType?: "physical" | "digital"; language: "uk" | "en"; provider?: "openai" | "claude" }) {
+export function getLucyConnections() {
+  return api.get<import("./types").LucyConnections>("/frontend-api/lucy/ai/connections");
+}
+
+export function connectLucyProvider(provider: "openai" | "anthropic", apiKey: string) {
+  return api.post<{ connected: true; fingerprint: string }>(`/frontend-api/lucy/ai/connections/${provider}`, { apiKey });
+}
+
+export function disconnectLucyProvider(provider: "openai" | "anthropic") {
+  return api.delete<{ disconnected: boolean }>(`/frontend-api/lucy/ai/connections/${provider}`);
+}
+
+export function optimizeLucyListing(input: { title: string; description: string; tags: string[]; materials?: string[]; productType?: "physical" | "digital"; language: "uk" | "en"; provider?: "openai" | "anthropic" | "claude" }) {
   return api.post<import("./types").LucyListingOptimization>("/frontend-api/lucy/listings/optimize", input);
 }
 
