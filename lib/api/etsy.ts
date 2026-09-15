@@ -76,6 +76,10 @@ export function getLucyCredits() {
   return api.get<import("./types").LucyCreditStatus>("/frontend-api/lucy/credits");
 }
 
+export function sendLucyChatMessage(input: { message: string; language: "uk" | "en"; contextType: "shop" | "listing" | "none"; listingId?: string; conversationId?: string }) {
+  return api.post<import("./types").LucyChatResponse>("/frontend-api/lucy/chat", input);
+}
+
 export function getLucyConnections() {
   return api.get<import("./types").LucyConnections>("/frontend-api/lucy/ai/connections");
 }
