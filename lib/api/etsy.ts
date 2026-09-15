@@ -72,6 +72,10 @@ export function getLucyProviderStatus() {
   return api.get<import("./types").LucyProviderStatus>("/frontend-api/lucy/providers");
 }
 
+export function getLucyCredits() {
+  return api.get<import("./types").LucyCreditStatus>("/frontend-api/lucy/credits");
+}
+
 export function getLucyConnections() {
   return api.get<import("./types").LucyConnections>("/frontend-api/lucy/ai/connections");
 }

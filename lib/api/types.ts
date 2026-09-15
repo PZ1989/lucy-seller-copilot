@@ -142,6 +142,7 @@ export type LucyListingOptimization = {
 };
 
 export type LucyProviderStatus = { openai: boolean; anthropic: boolean; defaultProvider: "auto" | "openai" | "anthropic" };
+export type LucyCreditStatus = { plan: "pro" | "multi_store"; monthlyAllowance: number; monthlyRemaining: number; purchasedRemaining: number; totalAvailable: number; billingCycleEndsAt: string; usagePercent: number };
 export type LucyConnection = { connected: boolean; fingerprint: string | null; lastVerifiedAt: string | null };
 export type LucyConnections = { openai: LucyConnection; anthropic: LucyConnection };
 

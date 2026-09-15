@@ -6,8 +6,8 @@ import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Icon, type IconName } from "@/components/dashboard/icons";
 import { LanguageSwitcher, useI18n } from "@/lib/i18n";
-import { getEtsyListings, getEtsyStats, getLucyConnections } from "@/lib/api/etsy";
-import type { EtsyListing, EtsyStats, LucyConnections } from "@/lib/api/types";
+import { getEtsyListings, getEtsyStats, getLucyCredits } from "@/lib/api/etsy";
+import type { EtsyListing, EtsyStats, LucyCreditStatus } from "@/lib/api/types";
 import { useSession } from "@/lib/session";
 import { useSubscription } from "@/lib/subscription";
 
@@ -25,7 +25,7 @@ export default function Home() {
   const { paid } = useSubscription();
   const [stats, setStats] = useState<EtsyStats | null>(null);
   const [listings, setListings] = useState<EtsyListing[]>([]);
-  const [aiConnections, setAiConnections] = useState<LucyConnections | null>(null);
+  const [credits, setCredits] = useState<LucyCreditStatus | null>(null);
   const [dataError, setDataError] = useState(false);
   const shopName = primaryShop?.name ?? t("home.simple.noShop");
   const displayName = user?.name && !/^(owner|admin|administrator|user|client)$/i.test(user.name.trim()) ? user.name.trim() : "";
@@ -35,7 +35,7 @@ export default function Home() {
 
   useEffect(() => {
     let active = true;
-    void getLucyConnections().then((connections) => { if (active) setAiConnections(connections); }).catch(() => undefined);
+    void getLucyCredits().then((balance) => { if (active) setCredits(balance); }).catch(() => undefined);
     if (!connected) { setStats(null); setListings([]); setDataError(false); return () => { active = false; }; }
     setDataError(false);
     void Promise.all([getEtsyStats(), getEtsyListings({ limit: 1 })]).then(([nextStats, response]) => { if (active) { setStats(nextStats); setListings(response.listings); } }).catch(() => { if (active) { setStats(null); setListings([]); setDataError(true); } });
@@ -45,11 +45,10 @@ export default function Home() {
   const recommendation = etsyConnected && listings.length > 0 ? { title: t("home.simple.recommend.reviewListings"), body: t("home.simple.recommend.reviewListingsDesc"), action: t("home.simple.recommend.open"), href: "/monitoring" } : { title: t("home.simple.connectTitle"), body: t("home.simple.connectBody"), action: t("home.simple.connect"), href: "/connections" };
   const accounts = [
     { name: "Etsy", icon: "shop", connected: etsyConnected },
-    { name: "OpenAI", icon: "bot", connected: Boolean(aiConnections?.openai.connected) },
-    { name: "Claude", icon: "sparkles", connected: Boolean(aiConnections?.anthropic.connected) },
+    { name: "Lucy AI", icon: "sparkles", connected: true },
   ];
 
-  return <div className="dashboard-home min-h-screen bg-[#F7F4F1] px-4 pb-12 pt-5 sm:px-6 lg:px-8 lg:pt-7"><div className="mx-auto max-w-[1320px]">
+  return <div className="dashboard-home min-h-screen bg-[#F7F4F1] px-4 pb-12 pt-5 sm:px-6 lg:px-8 lg:pt-7"><div className="mx-auto max-w-[1320px]">{credits && <div className="mb-4 flex items-center justify-between rounded-[14px] border border-[#333333]/8 bg-white px-4 py-3"><span className="text-[12px] font-semibold text-[#333333]">AI Credits</span><span className="text-[12px] text-[#333333]/55">{credits.totalAvailable.toLocaleString()} / {credits.monthlyAllowance.toLocaleString()}</span></div>}
     <header className="mb-7 flex items-center justify-between gap-4 border-b border-[#333333]/10 pb-5"><div><h1 className="text-[26px] font-semibold tracking-[-0.045em] text-[#333333]">{t("home.simple.welcome")}{displayName ? `, ${displayName}` : ""}!</h1><p className="mt-1 text-[14px] text-[#333333]/50">{t("home.simple.today")}</p></div><div className="flex items-center gap-2 sm:gap-3"><button type="button" aria-label={t("home.notifications")} className="relative grid size-10 place-items-center rounded-xl border border-[#333333]/10 bg-white text-[#333333]/55"><Bell size={17}/></button><LanguageSwitcher/><select aria-label={t("home.storePicker")} className="hidden h-10 min-w-[220px] rounded-xl border border-[#333333]/10 bg-white px-3 text-xs sm:block"><option>{shopName}</option></select></div></header>
     <section className="overflow-hidden rounded-[30px] border border-[#333333]/8 bg-gradient-to-br from-white via-[#FFFDFC] to-[#F4F7F8] p-6 shadow-[0_20px_60px_rgba(51,51,51,0.06)] sm:p-8 lg:p-10"><div className="grid items-center gap-8 lg:grid-cols-[34%_36%_30%]"><div><p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#F74E03]">{t("home.simple.referenceBadge")}</p><h2 className="mt-5 text-[clamp(2.8rem,4vw,4.2rem)] font-semibold leading-[0.95] tracking-[-0.07em] text-[#333333]">{t("home.hero.greeting")}<br/><span className="text-[#F74E03]">{t("home.hero.name")}</span></h2><p className="mt-6 max-w-[390px] text-[16px] leading-7 text-[#333333]/65">{t("home.simple.referenceBody")}</p><Link href="/chat" className="mt-7 inline-flex rounded-[14px] bg-[#F74E03] px-5 py-3 text-[14px] font-semibold text-white">{t("home.simple.startChat")}</Link></div><div className="flex justify-center"><Image src="/lucy/lucy-updated.png" alt={t("home.hero.name")} width={1843} height={2139} preload className="h-[390px] w-[390px] object-contain lg:h-[510px] lg:w-[510px]"/></div><div className="rounded-[22px] border border-[#333333]/8 bg-white/80 p-4"><p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#333333]/45">{t("home.simple.accountsLabel")}</p><h3 className="mt-2 text-[22px] font-semibold text-[#333333]">{t("home.simple.environment")}</h3><div className="mt-4 space-y-2">{accounts.map((account) => <div key={account.name} className="flex min-h-[50px] items-center gap-3 rounded-[14px] border border-[#333333]/8 px-3"><span className="grid size-9 place-items-center rounded-[11px] bg-[#F7F4F1] text-[#333333]/55"><Icon name={account.icon as IconName} size={16}/></span><span className="flex-1 text-[14px] font-semibold text-[#333333]">{account.name}</span><span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${account.connected ? "bg-[#EAF6EF] text-[#2D8158]" : "bg-[#F4F2F0] text-[#4D4D4D]"}`}>{account.connected ? t("common.connected") : t("connections.status.notConnected")}</span></div>)}</div></div></div></section>
     <section className="mt-8 grid gap-5 md:grid-cols-3">{[[t("home.stats.title"), unavailable ? t("common.unavailable") : new Intl.NumberFormat().format(stats?.activeListings ?? 0)], [t("home.stats.views"), unavailable || stats?.views === null ? t("common.unavailable") : new Intl.NumberFormat().format(stats?.views ?? 0)], [t("home.stats.favorites"), unavailable || stats?.favorites === null ? t("common.unavailable") : new Intl.NumberFormat().format(stats?.favorites ?? 0)]].map(([label, value]) => <article key={label} className="rounded-[18px] border border-[#333333]/8 bg-white p-4"><p className="text-[14px] font-semibold text-[#333333]/55">{label}</p><p className="mt-1 text-[30px] font-semibold text-[#333333]">{value}</p></article>)}</section>
