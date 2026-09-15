@@ -35,8 +35,7 @@ const toolIcons = {
   Правила: Sparkles,
   Розклад: CalendarClock,
   Etsy: Layers,
-  ChatGPT: Sparkles,
-  Claude: Sparkles,
+  "Lucy AI": Sparkles,
   Telegram: Layers,
 } as const;
 

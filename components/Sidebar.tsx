@@ -61,7 +61,7 @@ export default function Sidebar() {
           <div className="mt-4 space-y-1 text-[11px]">
             <div>• {t("plan.storeUsage")}</div>
             <div>• {t("common.catalog")}</div>
-            <div>• ChatGPT + Claude</div>
+            <div>• AI 2500 / month</div>
             <div>• {t("nav.analytics")}</div>
           </div>
 

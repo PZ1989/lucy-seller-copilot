@@ -10,7 +10,7 @@ const plans = [
     price: "$59",
     cadence: "/ місяць",
     shops: "1 магазин",
-    description: "Усі інструменти, ChatGPT + Claude, аналітика та базова автоматизація.",
+    description: "Усі інструменти Lucy, 2500 AI credits, аналітика та базова автоматизація.",
     action: "Керувати планом",
     current: true,
   },

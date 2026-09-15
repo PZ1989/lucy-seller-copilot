@@ -8,7 +8,7 @@ const groups = [
   { title: "SEO", icon: "◎", items: ["SEO-аналіз", "Генератор тайтлів", "Генератор тегів", "Опис товару", "Оптимізація лістингу"] },
   { title: "Аналітика", icon: "▣", items: ["Щоденний звіт", "Тижневий звіт", "Місячний звіт", "Фінансовий звіт"] },
   { title: "Автоматизація", icon: "⚙", items: ["Черга", "Запустити чергу", "Розклад", "Правила автоматизації"] },
-  { title: "Інтеграції", icon: "⎇", items: ["Etsy", "ChatGPT", "Claude", "Telegram"] },
+  { title: "Інтеграції", icon: "⎇", items: ["Etsy", "Lucy AI", "Telegram"] },
 ];
 
 export default function LucyToolsPanel() {

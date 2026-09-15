@@ -98,7 +98,7 @@ export const insights = [
 
 export const accountStatuses = [
   { name: "Etsy", monogram: "E", status: "Підключено", tone: "success" },
-  { name: "ChatGPT", monogram: "G", status: "Підключено", tone: "success" },
+  { name: "Lucy AI", monogram: "L", status: "У тарифі", tone: "success" },
   { name: "Telegram", monogram: "T", status: "Потрібне оновлення", tone: "warning" },
 ];
 
@@ -162,8 +162,7 @@ export const toolGroups: ToolGroup[] = [
     icon: "link",
     items: [
       { name: "Etsy", description: "Статус підключеного магазину", titleKey: "tool.integrations.etsy", descriptionKey: "tool.integrations.etsyDesc" },
-      { name: "ChatGPT", description: "Доступ до AI-моделі", titleKey: "tool.integrations.chatgpt", descriptionKey: "tool.integrations.chatgptDesc" },
-      { name: "Claude", description: "Опції AI-генерації", titleKey: "tool.integrations.claude", descriptionKey: "tool.integrations.claudeDesc" },
+      { name: "Lucy AI", description: "AI входить до тарифу Lucy", titleKey: "tool.integrations.lucyAi", descriptionKey: "tool.integrations.lucyAiDesc" },
       { name: "Telegram", description: "Сповіщення та оновлення", titleKey: "tool.integrations.telegram", descriptionKey: "tool.integrations.telegramDesc" },
     ],
   },

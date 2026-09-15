@@ -13,6 +13,7 @@ const dictionaries: Record<Locale, Record<string, string>> = {
 
 const draftOnlyOverrides: Record<Locale, Record<string, string>> = {
   en: {
+    "tool.integrations.lucyAi": "Lucy AI", "tool.integrations.lucyAiDesc": "AI included with your Lucy plan",
     "connections.service.lucyAiDesc": "Lucy AI is included with your plan and managed automatically.", "connections.status.managedByLucy": "Managed by Lucy",
     "connections.actions.connectOpenAI": "Connect OpenAI", "connections.actions.disconnect": "Disconnect", "connections.modal.openaiTitle": "Connect OpenAI", "connections.modal.claudeTitle": "Connect Claude", "connections.modal.openaiHelp": "Paste your own OpenAI API key. It will be encrypted and stored securely.", "connections.modal.claudeHelp": "Paste your own Anthropic API key. It will be encrypted and stored securely.",
     "listings.bulk.loadingProfiles": "Loading Etsy profiles...", "listings.bulk.profileError": "Etsy fulfillment profiles are unavailable.", "listings.bulk.noShippingProfiles": "No Etsy shipping profiles found.", "listings.bulk.noReadinessProfiles": "No Etsy processing profiles found.",
@@ -84,6 +85,7 @@ const draftOnlyOverrides: Record<Locale, Record<string, string>> = {
     "etsy.createDraft": "Create Etsy Draft", "etsy.updateDraft": "Update Draft", "etsy.uploadPhotos": "Upload Photos", "etsy.uploading": "Uploading...", "etsy.saving": "Saving...", "etsy.draftCreated": "Draft created in Etsy", "etsy.draftUpdated": "Draft updated in Etsy", "etsy.imageUploaded": "Image uploaded to Etsy draft", "etsy.connectFirst": "Connect Etsy first", "etsy.createError": "Could not create draft", "etsy.updateError": "Could not update draft", "etsy.imageError": "Could not upload image", "etsy.imageInvalid": "Choose a JPG, PNG, or WebP image up to 10 MB", "etsy.invalidDraft": "Complete all required draft fields", "etsy.fieldTitle": "Title", "etsy.fieldDescription": "Description", "etsy.fieldPrice": "Price", "etsy.fieldQuantity": "Quantity",
   },
   uk: {
+    "tool.integrations.lucyAi": "Lucy AI", "tool.integrations.lucyAiDesc": "AI входить до тарифу Lucy",
     "connections.service.lucyAiDesc": "Lucy AI входить до вашого тарифу та керується автоматично.", "connections.status.managedByLucy": "Керується Lucy",
     "connections.actions.connectOpenAI": "Підключити OpenAI", "connections.modal.openaiTitle": "Підключити OpenAI", "connections.modal.claudeTitle": "Підключити Claude", "connections.modal.openaiHelp": "Вставте ваш власний OpenAI API key. Ключ буде зашифровано та збережено безпечно.", "connections.modal.claudeHelp": "Вставте ваш власний Anthropic API key. Ключ буде зашифровано та збережено безпечно.",
     "listings.bulk.loadingProfiles": "Завантаження профілів Etsy...", "listings.bulk.profileError": "Профілі виконання Etsy недоступні.", "listings.bulk.noShippingProfiles": "У Etsy не знайдено профілів доставки.", "listings.bulk.noReadinessProfiles": "У Etsy не знайдено термінів підготовки.",

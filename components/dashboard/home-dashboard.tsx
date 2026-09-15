@@ -45,7 +45,7 @@ export default function Home() {
   const recommendation = etsyConnected && listings.length > 0 ? { title: t("home.simple.recommend.reviewListings"), body: t("home.simple.recommend.reviewListingsDesc"), action: t("home.simple.recommend.open"), href: "/monitoring" } : { title: t("home.simple.connectTitle"), body: t("home.simple.connectBody"), action: t("home.simple.connect"), href: "/connections" };
   const accounts = [
     { name: "Etsy", icon: "shop", connected: etsyConnected },
-    { name: "Lucy AI", icon: "sparkles", connected: true },
+    { name: "Telegram", icon: "send", connected: false },
   ];
 
   return <div className="dashboard-home min-h-screen bg-[#F7F4F1] px-4 pb-12 pt-5 sm:px-6 lg:px-8 lg:pt-7"><div className="mx-auto max-w-[1320px]">{credits && <div className="mb-4 flex items-center justify-between rounded-[14px] border border-[#333333]/8 bg-white px-4 py-3"><span className="text-[12px] font-semibold text-[#333333]">AI Credits</span><span className="text-[12px] text-[#333333]/55">{credits.totalAvailable.toLocaleString()} / {credits.monthlyAllowance.toLocaleString()}</span></div>}
