@@ -31,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${manrope.className} ${manrope.variable} ${onest.variable}`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${manrope.className} ${manrope.variable} ${onest.variable}`} suppressHydrationWarning>
         <I18nProvider><SessionProvider><SubscriptionProvider><AppShell>{children}</AppShell></SubscriptionProvider></SessionProvider></I18nProvider>
       </body>
     </html>

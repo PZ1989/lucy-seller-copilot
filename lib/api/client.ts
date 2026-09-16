@@ -28,6 +28,11 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
       signal: controller.signal,
     });
 
+    if (path === "/frontend-api/lucy/chat") {
+      console.info(`[LUCY_CHAT_HTTP] status=${response.status}`);
+      console.info(`[LUCY_CHAT_CONTENT_TYPE] ${response.headers.get("content-type") ?? "missing"}`);
+    }
+
     if (response.status === 401) {
       throw new ApiError("Your session has expired.", "unauthenticated", response.status);
     }
@@ -38,13 +43,26 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
         const payload = await response.clone().json() as { error?: unknown; message?: unknown };
         if (typeof payload.error === "string") publicCode = payload.error;
         if (typeof payload.message === "string") publicMessage = payload.message;
-      } catch { /* Keep the generic safe fallback for non-JSON errors. */ }
+        if (path === "/frontend-api/lucy/chat") console.info(`[LUCY_CHAT_ERROR_CODE] ${publicCode}`);
+      } catch {
+        if (path === "/frontend-api/lucy/chat") console.info("[LUCY_CHAT_ERROR_CODE] invalid_backend_response");
+      }
       throw new ApiError(publicMessage, publicCode, response.status);
     }
 
+    const contentType = response.headers.get("content-type") ?? "";
+    if (path === "/frontend-api/lucy/chat") {
+      const keys = contentType.includes("application/json") ? Object.keys((await response.clone().json()) as Record<string, unknown> ?? {}) : ["non_json"];
+      console.info(`[LUCY_CHAT_RESPONSE_KEYS] ${keys.join(",")}`);
+    }
+
     try {
-      return (await response.json()) as T;
-    } catch {
+      if (contentType.includes("application/json")) {
+        return (await response.json()) as T;
+      }
+      throw new ApiError("The API returned a non-JSON response.", "invalid_backend_response", response.status);
+    } catch (error) {
+      if (error instanceof ApiError) throw error;
       throw new ApiError("The API returned an invalid response.", "invalid_response", response.status);
     }
   } catch (error) {
