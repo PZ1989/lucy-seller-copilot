@@ -1,9 +1,13 @@
 import { ApiError } from "./types";
 
 const DEFAULT_TIMEOUT_MS = 10_000;
+const PRODUCTION_API_BASE_URL = "https://connector.lucysellercopilot.online";
 
 export function apiBaseUrl() {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.trim();
+  if (process.env.NODE_ENV === "production") {
+    return PRODUCTION_API_BASE_URL;
+  }
   if (!baseUrl) {
     throw new ApiError("The API base URL is not configured.", "unavailable");
   }
@@ -15,7 +19,9 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
   const timeout = window.setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
 
   try {
-    const response = await fetch(`${apiBaseUrl()}${path}`, {
+    const endpoint = `${apiBaseUrl()}${path}`;
+    if (path === "/frontend-api/lucy/chat") console.info(`[LUCY_CHAT_FRONTEND] endpoint=${endpoint}`);
+    const response = await fetch(endpoint, {
       ...init,
       credentials: "include",
       headers: { Accept: "application/json", ...init.headers },
@@ -46,7 +52,7 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
     if (error instanceof DOMException && error.name === "AbortError") {
       throw new ApiError("The request timed out.", "timeout");
     }
-    throw new ApiError("The API is unavailable.", "unavailable");
+    throw new ApiError(error instanceof TypeError ? "The API network request failed." : "The API is unavailable.", error instanceof TypeError ? "network_error" : "unavailable");
   } finally {
     window.clearTimeout(timeout);
   }
