@@ -201,6 +201,35 @@ export type BillingStatus = {
 
 export type ApiErrorCode = string;
 
+export type MarketResearchProvider = {
+  provider: "everbee" | "dataforseo" | "similarweb";
+  status: "ok" | "no_data" | "unavailable";
+  dataClass: "etsy_market_research" | "external_search" | "external_etsy_traffic";
+  accuracy: "exact" | "observed" | "estimated";
+  fetchedAt: string;
+  label?: string;
+  reason?: string;
+  keyword?: string;
+  searchVolume?: number | null;
+  competition?: number | null;
+  competitionIndex?: number | null;
+  cpc?: number | null;
+  monthlySearches?: Array<{ year: number; month: number; searchVolume: number }>;
+  rows?: Array<Record<string, unknown>>;
+  text?: string;
+  structured?: unknown;
+};
+
+export type MarketResearchResponse = {
+  id: string;
+  query: string;
+  mode: string;
+  country: string;
+  generatedAt: string;
+  disclosure: string;
+  sources: MarketResearchProvider[];
+};
+
 export class ApiError extends Error {
   constructor(
     message: string,
